@@ -1,5 +1,7 @@
 
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import json
 from openai import OpenAI, RateLimitError, AuthenticationError, APIConnectionError
@@ -8,7 +10,7 @@ app = FastAPI(
     description="AI-powered English learning assistant",
     version="0.1.0"
 )
-
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 class GrammarRequest(BaseModel):
     text: str
@@ -16,7 +18,7 @@ class GrammarRequest(BaseModel):
 
 @app.get("/")
 def home():
-    return {"message": "Welcome to AI English Coach"}
+    return FileResponse("static/index.html")
 
 
 
@@ -81,4 +83,44 @@ def check_grammar(request: GrammarRequest):
         raise HTTPException(
             status_code=503,
             detail="Unable to connect to the AI service."
+        )
+from pydantic import BaseModel
+from fastapi import HTTPException
+from openai import OpenAI
+
+class ChatRequest(BaseModel):
+    level: str = "A1"
+    message: str
+    history: list[dict[str, str]] = []
+
+@app.post("/chat")
+def chat(request: ChatRequest):
+    try:
+        client = OpenAI()
+
+        response = client.responses.create(
+            model="gpt-4.1-mini",
+       instructions=(
+    "You are a friendly and professional English speaking coach. "
+    "Have a natural conversation with the student in English. "
+    f"The student's English level is {request.level}. "
+"Adapt your vocabulary, grammar, and sentence complexity to this CEFR level. "
+    "If the student makes a grammar mistake, briefly correct it. "
+    "Show the corrected sentence and explain the mistake simply. "
+    "Then respond naturally and ask one follow-up question. "
+    "If the sentence is correct, do not invent mistakes. "
+    "Keep your response under 80 words. "
+),
+            input=[
+    *request.history,
+    {"role": "user", "content": request.message}
+]
+        )
+
+        return {"reply": response.output_text}
+
+    except Exception:
+        raise HTTPException(
+            status_code=500,
+            detail="Unable to generate a reply."
         )

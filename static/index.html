@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI English Coach</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>AI English Coach</h1>
+        <p>Improve your English with AI-powered feedback.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Grammar Checker</h2>
+            <p>Enter an English sentence to get corrections.</p>
+
+            <label for="sentence">Your sentence:</label>
+            <textarea
+                id="sentence"
+                rows="5"
+                placeholder="Type your English sentence here..."
+            ></textarea>
+            <p id="char-count">Characters: 0</p>
+<p id="character-count">0 characters</p>
+<p id="error-message" role="alert" hidden></p>
+            <button id="check-btn" type="button">
+                Check Grammar
+            </button>
+            <button id="start-speaking" type="button">
+    🎤 Start Speaking
+</button>
+
+<p id="speech-status"></p>
+<button id="listen-btn" type="button">
+    🔊 Listen
+</button>
+<section id="chat-section">
+    <h2>💬 AI English Conversation</h2>
+<label for="english-level">English Level:</label>
+
+<select id="english-level">
+    <option value="A1">A1 - Beginner</option>
+    <option value="A2">A2 - Elementary</option>
+    <option value="B1">B1 - Intermediate</option>
+    <option value="B2">B2 - Upper Intermediate</option>
+    <option value="C1">C1 - Advanced</option>
+    <option value="C2">C2 - Proficient</option>
+</select>
+
+<div id="chat-messages" aria-live="polite"></div>
+    <div id="chat-messages" aria-live="polite"></div>
+
+    <input
+        type="text"
+        id="chat-input"
+        placeholder="Type your message in English..."
+    >
+
+    <button id="send-chat" type="button">
+        Send Message
+    </button>
+    
+</section>
+        </section>
+
+        <section id="results" hidden>
+            <h2>Your Feedback</h2>
+            <h3>Corrected Sentence</h3>
+            <p id="corrected"></p>
+
+            <h3>Explanation</h3>
+            <p id="explanation"></p>
+
+            <h3>Natural Sentence</h3>
+            <p id="natural"></p>
+        </section>
+    </main>
+    <script src="/static/script.js" defer></script>
+</body>
+</html>
