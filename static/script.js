@@ -200,7 +200,7 @@ window.speechSynthesis.speak(aiSpeech);
         sendChatButton.textContent = "Send Message";
     }
 });
-const voiceChatButton = document.getElementById("voice-chat-btn");
+const voiceChatButton = document.getElementById("start-voice-chat");
 const voiceChatStatus = document.getElementById("voice-chat-status");
 
 if (SpeechRecognition) {
@@ -209,8 +209,7 @@ if (SpeechRecognition) {
     voiceRecognition.continuous = false;
     voiceRecognition.interimResults = false;
 
-    voiceChatButton.addEventListener("click", () => {
-        window.speechSynthesis.cancel();
+voiceChatButton.addEventListener("click", () => {        window.speechSynthesis.cancel();
         voiceChatStatus.textContent = "Listening...";
         voiceRecognition.start();
     });
@@ -239,7 +238,7 @@ if (SpeechRecognition) {
     voiceChatStatus.textContent =
         "Voice recognition is not supported in this browser.";
 }
-const newChatButton = document.getElementById("new-chat-btn");
+
 
 newChatButton.addEventListener("click", () => {
     conversationHistory.length = 0;
