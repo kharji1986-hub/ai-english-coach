@@ -108,11 +108,11 @@ listenButton.addEventListener("click", () => {
 
     window.speechSynthesis.cancel();
 
-    const speech = new SpeechSynthesisUtterance(text);
-    speech.lang = "en-US";
-    speech.rate = 0.9;
+  const speech = new SpeechSynthesisUtterance(text);
+speech.lang = "en-US";
+speech.rate = 0.9;
 
-    window.speechSynthesis.speak(speech);
+window.speechSynthesis.speak(speech);
 });
 const conversationHistory = [];
 const chatInput = document.getElementById("chat-input");
@@ -201,15 +201,21 @@ window.speechSynthesis.speak(aiSpeech);
     }
 });
 const voiceChatButton = document.getElementById("start-voice-chat");
+const stopVoiceChatButton = document.getElementById("stop-voice-chat");
 const voiceChatStatus = document.getElementById("voice-chat-status");
 
+let autoVoiceChat = false;
+let voiceRecognition = null;
+
 if (SpeechRecognition) {
-    const voiceRecognition = new SpeechRecognition();
+    voiceRecognition = new SpeechRecognition();
     voiceRecognition.lang = "en-US";
     voiceRecognition.continuous = false;
     voiceRecognition.interimResults = false;
 
-voiceChatButton.addEventListener("click", () => {        window.speechSynthesis.cancel();
+    voiceChatButton.addEventListener("click", () => {
+        autoVoiceChat = true;
+        window.speechSynthesis.cancel();
         voiceChatStatus.textContent = "Listening...";
         voiceRecognition.start();
     });
@@ -249,4 +255,14 @@ newChatButton.addEventListener("click", () => {
     window.speechSynthesis.cancel();
 
     voiceChatStatus.textContent = "New conversation started!";
+});
+stopVoiceChatButton.addEventListener("click", () => {
+    autoVoiceChat = false;
+
+    if (voiceRecognition) {
+        voiceRecognition.abort();
+    }
+
+    window.speechSynthesis.cancel();
+    voiceChatStatus.textContent = "Conversation stopped.";
 });
