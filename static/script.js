@@ -188,7 +188,17 @@ const aiSpeech = new SpeechSynthesisUtterance(data.reply);
 aiSpeech.lang = "en-US";
 aiSpeech.rate = 0.9;
 aiSpeech.pitch = 1;
-
+aiSpeech.onend = () => {
+    if (autoVoiceChat && voiceRecognition) {
+        voiceChatStatus.textContent = "Listening...";
+        try {
+            voiceRecognition.start();
+        } catch (error) {
+            voiceChatStatus.textContent = "Microphone restart failed.";
+            console.error(error);
+        }
+    }
+};
 window.speechSynthesis.speak(aiSpeech);
     } catch (error) {
         const errorText = document.createElement("p");
@@ -235,10 +245,10 @@ if (SpeechRecognition) {
     };
 
     voiceRecognition.onend = () => {
-        if (voiceChatStatus.textContent === "Listening...") {
-            voiceChatStatus.textContent = "Listening stopped.";
-        }
-    };
+    if (voiceChatStatus.textContent === "Listening...") {
+        voiceChatStatus.textContent = "Microphone stopped.";
+    }
+};
 } else {
     voiceChatButton.disabled = true;
     voiceChatStatus.textContent =
