@@ -117,6 +117,12 @@ window.speechSynthesis.speak(speech);
 const conversationHistory = [];
 const chatInput = document.getElementById("chat-input");
 const sendChatButton = document.getElementById("send-chat");
+chatInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        sendChatButton.click();
+    }
+});
 const chatMessages = document.getElementById("chat-messages");
 
 sendChatButton.addEventListener("click", async () => {
