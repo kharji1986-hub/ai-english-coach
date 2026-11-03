@@ -138,7 +138,11 @@ chatMessages.scrollTop = chatMessages.scrollHeight;
     chatInput.value = "";
     sendChatButton.disabled = true;
     sendChatButton.textContent = "Thinking...";
-
+const typingIndicator = document.createElement("p");
+typingIndicator.textContent = "AI Coach is typing...";
+typingIndicator.classList.add("typing-indicator");
+chatMessages.appendChild(typingIndicator);
+chatMessages.scrollTop = chatMessages.scrollHeight;
     try {
         const response = await fetch("/chat", {
             method: "POST",
@@ -212,6 +216,7 @@ window.speechSynthesis.speak(aiSpeech);
         chatMessages.appendChild(errorText);
 
     } finally {
+        typingIndicator.remove();
         sendChatButton.disabled = false;
         sendChatButton.textContent = "Send Message";
     }
