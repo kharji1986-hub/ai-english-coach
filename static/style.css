@@ -302,3 +302,19 @@ button:disabled {
     background: white;
     color: #111827;
 }
+.typing-indicator {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 8px 0;
+    background-color: #f1f3f5;
+    color: #666;
+    border-radius: 15px;
+    font-size: 14px;
+    font-style: italic;
+    animation: typingPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes typingPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
