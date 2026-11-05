@@ -135,6 +135,8 @@ sendChatButton.addEventListener("click", async () => {
     userMessage.classList.add("user-message");
     chatMessages.appendChild(userMessage);
 chatMessages.scrollTop = chatMessages.scrollHeight;
+
+window.speechSynthesis.cancel();
     chatInput.value = "";
     sendChatButton.disabled = true;
     sendChatButton.textContent = "Thinking...";
@@ -191,7 +193,7 @@ replayButton.addEventListener("click", () => {
 
 aiMessage.appendChild(replayButton);
         chatMessages.scrollTop = chatMessages.scrollHeight;
-window.speechSynthesis.cancel();
+
 
 const aiSpeech = new SpeechSynthesisUtterance(data.reply);
 
@@ -251,9 +253,13 @@ if (SpeechRecognition) {
     };
 
     voiceRecognition.onerror = (event) => {
-        voiceChatStatus.textContent =
-            "Microphone error: " + event.error;
-    };
+    if (event.error === "no-speech") {
+        voiceChatStatus.textContent = "No speech detected. Please try again.";
+        return;
+    }
+
+    voiceChatStatus.textContent = "Microphone error: " + event.error;
+};
 
     voiceRecognition.onend = () => {
     if (voiceChatStatus.textContent === "Listening...") {
@@ -266,7 +272,7 @@ if (SpeechRecognition) {
         "Voice recognition is not supported in this browser.";
 }
 
-
+const newChatButton = document.getElementById("new-chat");
 newChatButton.addEventListener("click", () => {
     conversationHistory.length = 0;
 
@@ -287,3 +293,11 @@ stopVoiceChatButton.addEventListener("click", () => {
     window.speechSynthesis.cancel();
     voiceChatStatus.textContent = "Conversation stopped.";
 });
+console.log("STOP BUTTON SETUP REACHED");
+document.addEventListener("click", (event) => {
+    if (event.target.closest("#stop-speaking")) {
+        window.speechSynthesis.cancel();
+        console.log("STOP BUTTON CLICKED");
+    }
+});
+console.log("END OF SCRIPT REACHED");
