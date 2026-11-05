@@ -50,9 +50,7 @@
     <option value="C1">C1 - Advanced</option>
     <option value="C2">C2 - Proficient</option>
 </select>
-
 <div id="chat-messages" aria-live="polite"></div>
-    <div id="chat-messages" aria-live="polite"></div>
 
     <input
         type="text"
@@ -60,15 +58,13 @@
         placeholder="Type your message in English..."
     >
 
-    <button id="send-chat" type="button">
-        Send Message
-    </button>
-    <button id="start-voice-chat" type="button">
-    🎤 Start Voice Chat
-</button>
-<button id="stop-voice-chat" type="button">⏹ Stop Conversation</button>
-<button id="new-chat" type="button">🔄 New Conversation</button>
-<button id="stop-speaking" type="button">🔇 Stop Speaking</button>
+    <div class="chat-actions">
+    <button id="send-chat" type="button">Send Message</button>
+    <button id="start-voice-chat" type="button">🎤 Start Voice Chat</button>
+    <button id="stop-voice-chat" type="button">⏹ Stop Conversation</button>
+    <button id="new-chat" type="button">🔄 New Conversation</button>
+    <button id="stop-speaking" type="button">🔇 Stop Speaking</button>
+</div>
 <p id="voice-chat-status" aria-live="polite"></p>
 </section>
         </section>
