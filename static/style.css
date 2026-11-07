@@ -210,8 +210,8 @@ max-width: 1000px;
 
 /* Chat Messages Area */
 #chat-messages {
-    height: 350px;
-    overflow-y: auto;
+min-height: 120px;
+max-height: 420px;    overflow-y: auto;
     padding: 15px;
     background: #f5f7fb;
     border-radius: 12px;
@@ -397,4 +397,59 @@ max-width: 1000px;
     header p {
         margin-bottom: 0;
     }
+}
+#chat-progress {
+    font-size: 14px;
+    font-weight: 700;
+    color: #667085;
+    margin-bottom: 10px;
+}
+/* Learning Progress Dashboard */
+.learning-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.stat-item {
+    background: #f4f6ff;
+    border: 1px solid #e2e7ff;
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 13px;
+    color: #667085;
+    margin-bottom: 8px;
+}
+
+.stat-item strong {
+    display: block;
+    font-size: 16px;
+    color: #333b7a;
+}
+
+@media (max-width: 400px) {
+    .learning-stats {
+        grid-template-columns: 1fr;
+    }
+}
+/* AI Learning Feedback */
+#learning-feedback {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f4f6ff;
+    border: 1px solid #dce3ff;
+    border-radius: 16px;
+    color: #303b65;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+#learning-feedback[hidden] {
+    display: none;
 }

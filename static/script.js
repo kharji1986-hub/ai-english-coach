@@ -171,6 +171,27 @@ conversationHistory.push({
     role: "assistant",
     content: data.reply
 });
+const wordsProgress = document.getElementById("words-progress");
+
+if (wordsProgress) {
+    const totalWords = conversationHistory
+        .filter(item => item.role === "user")
+        .reduce((total, item) => {
+            const words = item.content.trim().split(/\s+/);
+            return total + (item.content.trim() ? words.length : 0);
+        }, 0);
+
+    wordsProgress.textContent = `Words written: ${totalWords}`;
+}
+const chatProgress = document.getElementById("chat-progress");
+
+if (chatProgress) {
+    const count = conversationHistory.filter(
+        item => item.role === "user"
+    ).length;
+
+    chatProgress.textContent = `Messages sent: ${count}`;
+}
         const aiMessage = document.createElement("p");
         aiMessage.textContent = "AI Coach: " + data.reply;
         aiMessage.classList.add("ai-message");
@@ -273,6 +294,7 @@ if (SpeechRecognition) {
 }
 
 const newChatButton = document.getElementById("new-chat");
+
 newChatButton.addEventListener("click", () => {
     conversationHistory.length = 0;
 
@@ -282,7 +304,20 @@ newChatButton.addEventListener("click", () => {
     window.speechSynthesis.cancel();
 
     voiceChatStatus.textContent = "New conversation started!";
+
+    // Reset message counter
+    const chatProgress = document.getElementById("chat-progress");
+
+    if (chatProgress) {
+        chatProgress.textContent = "Messages sent: 0";
+    }
+    const wordsProgress = document.getElementById("words-progress");
+
+if (wordsProgress) {
+    wordsProgress.textContent = "Words written: 0";
+}
 });
+
 stopVoiceChatButton.addEventListener("click", () => {
     autoVoiceChat = false;
 

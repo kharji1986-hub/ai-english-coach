@@ -50,6 +50,17 @@
     <option value="C1">C1 - Advanced</option>
     <option value="C2">C2 - Proficient</option>
 </select>
+<div class="learning-stats">
+    <div class="stat-item">
+        <span class="stat-label">Messages Sent</span>
+        <strong id="chat-progress">Messages sent: 0</strong>
+    </div>
+
+    <div class="stat-item">
+        <span class="stat-label">Words Written</span>
+        <strong id="words-progress">Words written: 0</strong>
+    </div>
+</div>
 <div id="chat-messages" aria-live="polite"></div>
 
     <input
@@ -64,8 +75,12 @@
     <button id="stop-voice-chat" type="button">⏹ Stop Conversation</button>
     <button id="new-chat" type="button">🔄 New Conversation</button>
     <button id="stop-speaking" type="button">🔇 Stop Speaking</button>
+    <button id="evaluate-chat" type="button">
+    📊 Evaluate My English
+</button>
 </div>
 <p id="voice-chat-status" aria-live="polite"></p>
+<div id="learning-feedback" aria-live="polite" hidden></div>
 </section>
         </section>
 
